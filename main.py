@@ -17,7 +17,8 @@ def detect_intent_texts(update: Update, context: CallbackContext):
     response = session_client.detect_intent(
         request={"session": session, "query_input": query_input}
     )
-    context.bot.send_message(chat_id=session_id, text=response.query_result.fulfillment_text)
+    if response.query_result.fulfillment_text:
+        context.bot.send_message(chat_id=session_id, text=response.query_result.fulfillment_text)
 
 
 def start(update: Update, context: CallbackContext):
@@ -28,9 +29,6 @@ def main():
     load_dotenv()
     tg_token = os.environ['TELEGRAM_TOKEN']
     updater = Updater(token=tg_token)
-    project_id = os.environ['DIALOGFLOW_ID']
-    session_id = os.environ['SESSION_ID']
-    language_code = 'ru'
     dispatcher = updater.dispatcher
     start_handler = CommandHandler('start', start)
     dispatcher.add_handler(start_handler)
