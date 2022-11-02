@@ -3,6 +3,11 @@ from telegram import Update
 from telegram.ext import CallbackContext, CommandHandler, Updater, MessageHandler, Filters
 from detect_intent_texts import detect_intent_texts
 import os
+import logging
+from logger import BotLogsHandler
+
+
+logger = logging.getLogger('telegram_logging')
 
 
 def start(update: Update, context: CallbackContext):
@@ -20,8 +25,15 @@ def send_tgm_msg(update: Update, context: CallbackContext):
 
 def main():
     load_dotenv()
+    logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
     tg_token = os.environ['TGM_TOKEN']
+    tgm_id = os.environ['TGM_ID']
+    logger.warning('Бот Телеграмм запущен')
     updater = Updater(token=tg_token)
+    updater.logger.addHandler(BotLogsHandler(
+        token=tg_token,
+        chat_id=tgm_id
+    ))
     dispatcher = updater.dispatcher
     start_handler = CommandHandler('start', start)
     dispatcher.add_handler(start_handler)

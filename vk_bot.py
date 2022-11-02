@@ -1,6 +1,10 @@
 import random
 from dotenv import load_dotenv
 import os
+import logging
+from logger import BotLogsHandler
+
+logger = logging.getLogger('telegram_logging')
 
 import vk_api as vk
 from vk_api.longpoll import VkLongPoll, VkEventType
@@ -26,6 +30,11 @@ if __name__ == "__main__":
     vk_api = vk_session.get_api()
     project_id = os.environ['DIALOGFLOW_ID']
     longpoll = VkLongPoll(vk_session)
+    logger.warning('Бот ВК запущен')
+    logger.addHandler(BotLogsHandler(
+        token=os.environ['TGM_TOKEN'],
+        chat_id=os.environ['TGM_ID']
+    ))
     for event in longpoll.listen():
         if event.type == VkEventType.MESSAGE_NEW and event.to_me:
             send_vk_msg(event, vk_api, project_id)
