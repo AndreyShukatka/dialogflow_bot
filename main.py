@@ -27,7 +27,7 @@ def start(update: Update, context: CallbackContext):
 
 def main():
     load_dotenv()
-    tg_token = os.environ['TELEGRAM_TOKEN']
+    tg_token = os.environ['TGM_TOKEN']
     updater = Updater(token=tg_token)
     dispatcher = updater.dispatcher
     start_handler = CommandHandler('start', start)
