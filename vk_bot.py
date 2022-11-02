@@ -2,6 +2,7 @@ import vk_api
 from vk_api.longpoll import VkLongPoll, VkEventType
 import os
 from dotenv import load_dotenv
+import random
 
 
 def vk_bot(vk_token):
@@ -13,7 +14,7 @@ def vk_bot(vk_token):
             print('Новое сообщение:')
             if event.to_me:
                 print('Для меня от: ', event.user_id)
-                vk.messages.send(user_id=event.user_id, message='Привет человек!', random_id=0)
+                vk.messages.send(user_id=event.user_id, message=event.text, random_id=random.randint(1, 1000))
             else:
                 print('От меня для: ', event.user_id)
             print('Текст:', event.text)
