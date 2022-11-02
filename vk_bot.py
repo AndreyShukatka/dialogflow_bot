@@ -30,10 +30,11 @@ if __name__ == "__main__":
     vk_api = vk_session.get_api()
     project_id = os.environ['DIALOGFLOW_ID']
     longpoll = VkLongPoll(vk_session)
+    logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
     logger.warning('Бот ВК запущен')
     logger.addHandler(BotLogsHandler(
-        token=os.environ['TGM_TOKEN'],
-        chat_id=os.environ['TGM_ID']
+        os.environ['TGM_TOKEN'],
+        os.environ['TGM_ID']
     ))
     for event in longpoll.listen():
         if event.type == VkEventType.MESSAGE_NEW and event.to_me:

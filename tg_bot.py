@@ -30,9 +30,9 @@ def main():
     tgm_id = os.environ['TGM_ID']
     logger.warning('Бот Телеграмм запущен')
     updater = Updater(token=tg_token)
-    updater.logger.addHandler(BotLogsHandler(
-        token=tg_token,
-        chat_id=tgm_id
+    logger.addHandler(BotLogsHandler(
+        tg_token,
+        tgm_id
     ))
     dispatcher = updater.dispatcher
     start_handler = CommandHandler('start', start)
