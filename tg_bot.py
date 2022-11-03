@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 from telegram import Update
 from telegram.ext import CallbackContext, CommandHandler, Updater, MessageHandler, Filters
-from detect_intent_texts import detect_intent_texts
+from dialogflow_helpers import detect_intent_texts
 import os
 import logging
 from logger import BotLogsHandler
