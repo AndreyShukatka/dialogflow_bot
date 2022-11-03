@@ -31,12 +31,14 @@ if __name__ == "__main__":
     vk_api = vk_session.get_api()
     project_id = os.environ['DIALOGFLOW_ID']
     longpoll = VkLongPoll(vk_session)
-    logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
-    logger.warning('Бот ВК запущен')
-    logger.addHandler(BotLogsHandler(
-        os.environ['TGM_TOKEN'],
-        os.environ['TGM_ID']
-    ))
+    logger = logging.getLogger('tg_Logger')
+    logging.basicConfig(
+        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+        level=logging.INFO
+    )
+    logger.setLevel(logging.INFO)
+    logger.addHandler(BotLogsHandler(os.environ['TGM_TOKEN'], os.environ['TGM_ID']))
+    logger.info('VK бот запущен!')
     for event in longpoll.listen():
         if event.type == VkEventType.MESSAGE_NEW and event.to_me:
             send_vk_msg(event, vk_api, project_id)
