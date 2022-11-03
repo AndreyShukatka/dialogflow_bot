@@ -26,6 +26,7 @@ def send_vk_msg(event, vk_api, project_id):
 
 if __name__ == "__main__":
     load_dotenv()
+    print('Я тут vk')
     vk_token = os.environ['VK_TOKEN']
     vk_session = vk.VkApi(token=vk_token)
     vk_api = vk_session.get_api()
