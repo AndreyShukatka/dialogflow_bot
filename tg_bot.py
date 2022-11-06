@@ -6,8 +6,7 @@ import os
 import logging
 from logger import BotLogsHandler
 
-
-logger = logging.getLogger('telegram_logging')
+logger = logging.getLogger('tg_Logger')
 
 
 def start(update: Update, context: CallbackContext):
@@ -31,10 +30,8 @@ def send_tgm_msg(update: Update, context: CallbackContext):
 
 def main():
     load_dotenv()
-    print('Я тут tg')
     tg_token = os.environ['TGM_TOKEN']
     tgm_id = os.environ['TGM_ID']
-    logger = logging.getLogger('tg_Logger')
     logging.basicConfig(
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
         level=logging.INFO

@@ -3,13 +3,11 @@ from dotenv import load_dotenv
 import os
 import logging
 from logger import BotLogsHandler
-
 import vk_api as vk
 from vk_api.longpoll import VkLongPoll, VkEventType
 from dialogflow_helpers import detect_intent_texts
 
-
-logger = logging.getLogger('telegram_logging')
+logger = logging.getLogger('vk_Logger')
 
 
 def send_vk_msg(event, vk_api, project_id):
@@ -26,13 +24,11 @@ def send_vk_msg(event, vk_api, project_id):
 
 if __name__ == "__main__":
     load_dotenv()
-    print('Я тут vk')
     vk_token = os.environ['VK_TOKEN']
     vk_session = vk.VkApi(token=vk_token)
     vk_api = vk_session.get_api()
     project_id = os.environ['DIALOGFLOW_ID']
     longpoll = VkLongPoll(vk_session)
-    logger = logging.getLogger('tg_Logger')
     logging.basicConfig(
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
         level=logging.INFO
