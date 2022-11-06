@@ -50,9 +50,9 @@ if __name__ == '__main__':
         questions = file.read()
     questions = json.loads(questions)
     dialogflow_id = os.environ['DIALOGFLOW_ID']
-    for display_name in questions:
-        training_phrases_parts = questions[display_name]['questions']
-        message_texts = [questions[display_name]['answer']]
+    for display_name, question in questions.items():
+        training_phrases_parts = question['questions']
+        message_texts = [question['answer']]
         create_intent(
             dialogflow_id,
             display_name,
